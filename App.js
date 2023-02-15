@@ -4,8 +4,10 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Привіт 15 лютого 2023 року</Text>
-      <StatusBar style='auto' />
+      <View style={styles.innerBox}>
+        <Text style={styles.text}>Привіт 15 лютого 2023 року</Text>
+        <StatusBar style='auto' />
+      </View>
     </View>
   );
 }
@@ -19,5 +21,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 32,
+    color: '#f5b6a3',
+  },
+  innerBox: {
+    borderWidth: 2,
+    borderColor: '#h3b0c0',
   },
 });
