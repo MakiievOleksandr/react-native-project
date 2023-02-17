@@ -60,21 +60,27 @@ const RegistrationScreen = () => {
             placeholder='Email'
             placeholderTextColor='#BDBDBD'
           />
-          <TextInput
-            style={styles.input}
-            textAlign='left'
-            placeholder='Password'
-            placeholderTextColor='#BDBDBD'
-            secureTextEntry={true}
-          />
+          <View>
+            <TextInput
+              style={styles.input}
+              textAlign='left'
+              placeholder='Password'
+              placeholderTextColor='#BDBDBD'
+              secureTextEntry={true}
+            />
+            <TouchableOpacity style={styles.showBtn}>
+              <Text style={styles.showBtnText}>Show</Text>
+            </TouchableOpacity>
+          </View>
+
           <TouchableOpacity style={styles.button} activeOpacity={0.7}>
             <Text style={styles.btnTxt}>Sign in</Text>
           </TouchableOpacity>
-          <View>
+          <TouchableOpacity>
             <Text style={styles.loginText}>
               Already have an account? Log in
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
@@ -146,6 +152,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     marginBottom: 16,
+  },
+  showBtn: {
+    position: 'absolute',
+    right: 0,
+    top: 10,
+    backgroundColor: 'transparent',
+    minWidth: 80,
+    height: 30,
+    borderRadius: 5,
+    justifyContent: 'center',
+  },
+  showBtnText: {
+    fontSize: 16,
+    fontWeight: '400',
+    textAlign: 'center',
+    color: '#1B4371',
   },
   button: {
     height: 50,
