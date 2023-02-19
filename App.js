@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 
-import RegistrationScreen from './Screens/RegistrationScreen';
+// import RegistrationScreen from './Screens/RegistrationScreen';
 import LoginScreen from './Screens/LoginScreen';
 
 export default function App() {
   return (
     <>
-      <RegistrationScreen />
+      {/* <RegistrationScreen /> */}
       <LoginScreen />
     </>
   );

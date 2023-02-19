@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   StyleSheet,
   Text,
@@ -6,84 +8,148 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Platform,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
+import * as Font from 'expo-font';
+
+const initialState = {
+  login: '',
+  email: '',
+  password: '',
+};
+
 const RegistrationScreen = () => {
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [state, setState] = useState(initialState);
+
+  const handleHideKeyboard = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+  };
+
+  const handleSubmitForm = () => {
+    console.log(state);
+    setState(initialState);
+  };
+
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../images/hero-bg.jpg')}
-        style={styles.img}
-      >
-        <View style={styles.form}>
+    <TouchableWithoutFeedback onPress={handleHideKeyboard}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require('../assets/images/hero-bg.jpg')}
+          style={styles.img}
+        >
           <View
-            style={[
-              styles.avatarPlace,
-              {
-                transform: [{ translateX: -44 }],
-              },
-            ]}
+            style={{
+              ...styles.form,
+              paddingBottom: isShowKeyboard ? 0 : 80,
+            }}
           >
-            <TouchableOpacity
+            <View
               style={[
-                styles.addAvatarBtn,
+                styles.avatarPlace,
                 {
-                  transform: [
-                    {
-                      translateX: -13,
-                    },
-                    {
-                      translateY: -41,
-                    },
-                  ],
+                  transform: [{ translateX: -44 }],
                 },
               ]}
             >
-              <Image
-                style={styles.addAvatarBtnSymbol}
-                source={require('../images/Union.png')}
-              />
-              {/* <Text style={styles.addAvatarBtnSymbol}>+</Text> */}
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.text}>Registration</Text>
+              <TouchableOpacity
+                style={[
+                  styles.addAvatarBtn,
+                  {
+                    transform: [
+                      {
+                        translateX: -13,
+                      },
+                      {
+                        translateY: -41,
+                      },
+                    ],
+                  },
+                ]}
+              >
+                <Image
+                  style={styles.addAvatarBtnSymbol}
+                  source={require('../assets/images/Union.png')}
+                />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.text}>Registration</Text>
 
-          <TextInput
-            style={styles.input}
-            textAlign='left'
-            placeholder='Login'
-            placeholderTextColor='#BDBDBD'
-          />
-          <TextInput
-            style={styles.input}
-            textAlign='left'
-            placeholder='Email'
-            placeholderTextColor='#BDBDBD'
-          />
-          <View>
             <TextInput
               style={styles.input}
+              name='login'
+              value={state.login}
               textAlign='left'
-              placeholder='Password'
+              placeholder='Login'
               placeholderTextColor='#BDBDBD'
-              secureTextEntry={true}
+              onChangeText={(value) =>
+                setState((prevState) => ({ ...prevState, login: value }))
+              }
+              onFocus={() => setIsShowKeyboard(true)}
             />
-            <TouchableOpacity style={styles.showBtn}>
-              <Text style={styles.showBtnText}>Show</Text>
-            </TouchableOpacity>
-          </View>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+            >
+              <TextInput
+                style={styles.input}
+                textAlign='left'
+                name='email'
+                value={state.email}
+                placeholder='Email'
+                placeholderTextColor='#BDBDBD'
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, email: value }))
+                }
+                onFocus={() => setIsShowKeyboard(true)}
+              />
+            </KeyboardAvoidingView>
 
-          <TouchableOpacity style={styles.button} activeOpacity={0.7}>
-            <Text style={styles.btnTxt}>Sign in</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.loginText}>
-              Already have an account? Log in
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-    </View>
+            <View>
+              <TextInput
+                style={{
+                  ...styles.input,
+                  marginBottom: isShowKeyboard ? 32 : 43,
+                }}
+                textAlign='left'
+                placeholder='Password'
+                name='password'
+                value={state.password}
+                placeholderTextColor='#BDBDBD'
+                secureTextEntry={true}
+                onFocus={() => setIsShowKeyboard(true)}
+                onChangeText={(value) =>
+                  setState((prevState) => ({ ...prevState, password: value }))
+                }
+              />
+              <TouchableOpacity style={styles.showBtn}>
+                <Text style={styles.showBtnText}>Show</Text>
+              </TouchableOpacity>
+            </View>
+            {!isShowKeyboard && (
+              <>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={handleSubmitForm}
+                  activeOpacity={0.7}
+                >
+                  <Text style={styles.btnTxt}>Sign in</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Text style={styles.loginText}>
+                    Already have an account? Log in
+                  </Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -92,7 +158,6 @@ export default RegistrationScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
   },
   img: {
     flex: 1,
@@ -101,13 +166,11 @@ const styles = StyleSheet.create({
   },
 
   form: {
-    flex: 0.67,
     backgroundColor: '#ffffff',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
     paddingTop: 60,
     paddingHorizontal: 16,
-    // alignItems: 'center',
   },
   avatarPlace: {
     position: 'absolute',
@@ -153,6 +216,10 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginBottom: 16,
   },
+  inputLastChild: {
+    marginBottom: 0,
+  },
+
   showBtn: {
     position: 'absolute',
     right: 0,
@@ -174,6 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF6C00',
     borderRadius: 100,
     justifyContent: 'center',
+    marginBottom: 16,
   },
   btnTxt: {
     fontSize: 16,
@@ -185,7 +253,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     color: '#1B4371',
-    marginTop: 16,
     textAlign: 'center',
   },
 });
