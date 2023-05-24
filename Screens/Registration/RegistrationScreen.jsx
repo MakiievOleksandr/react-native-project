@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
+import styles from './registration-screen-styles';
+
 import {
-  StyleSheet,
   Text,
   View,
   ImageBackground,
@@ -14,15 +15,13 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
-import * as Font from 'expo-font';
-
 const initialState = {
   login: '',
   email: '',
   password: '',
 };
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
 
@@ -33,6 +32,8 @@ const RegistrationScreen = () => {
 
   const handleSubmitForm = () => {
     console.log(state);
+    // navigation.navigate('Posts');
+    // console.log(navigation);
     setState(initialState);
   };
 
@@ -40,7 +41,7 @@ const RegistrationScreen = () => {
     <TouchableWithoutFeedback onPress={handleHideKeyboard}>
       <View style={styles.container}>
         <ImageBackground
-          source={require('../assets/images/hero-bg.jpg')}
+          source={require('../../assets/images/hero-bg.jpg')}
           style={styles.img}
         >
           <View
@@ -74,7 +75,7 @@ const RegistrationScreen = () => {
               >
                 <Image
                   style={styles.addAvatarBtnSymbol}
-                  source={require('../assets/images/Union.png')}
+                  source={require('../../assets/images/Union.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -139,7 +140,7 @@ const RegistrationScreen = () => {
                 >
                   <Text style={styles.btnTxt}>Sign in</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                   <Text style={styles.loginText}>
                     Already have an account? Log in
                   </Text>
@@ -154,105 +155,3 @@ const RegistrationScreen = () => {
 };
 
 export default RegistrationScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  img: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'flex-end',
-  },
-
-  form: {
-    backgroundColor: '#ffffff',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    paddingTop: 60,
-    paddingHorizontal: 16,
-  },
-  avatarPlace: {
-    position: 'absolute',
-    left: '50%',
-    top: -60,
-    width: 120,
-    height: 120,
-    backgroundColor: '#F6F6F6',
-    borderRadius: 16,
-  },
-  addAvatarBtn: {
-    bottom: '-100%',
-    right: '-100%',
-    width: 25,
-    height: 25,
-    borderWidth: 1,
-    borderRadius: 50,
-    borderColor: '#FF6C00',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addAvatarBtnSymbol: {
-    width: 13,
-    height: 13,
-  },
-  text: {
-    color: '#212121',
-    fontSize: 30,
-    fontWeight: '500',
-    textAlign: 'center',
-    paddingVertical: 32,
-  },
-
-  input: {
-    borderWidth: 1,
-    borderColor: '#e8e8e8',
-    height: 50,
-    borderRadius: 8,
-    color: '#212121',
-    padding: 16,
-    backgroundColor: '#F6F6F6',
-    fontSize: 16,
-    fontWeight: '400',
-    marginBottom: 16,
-  },
-  inputLastChild: {
-    marginBottom: 0,
-  },
-
-  showBtn: {
-    position: 'absolute',
-    right: 0,
-    top: 10,
-    backgroundColor: 'transparent',
-    minWidth: 80,
-    height: 30,
-    borderRadius: 5,
-    justifyContent: 'center',
-  },
-  showBtnText: {
-    fontSize: 16,
-    fontWeight: '400',
-    textAlign: 'center',
-    color: '#1B4371',
-  },
-  button: {
-    height: 50,
-    backgroundColor: '#FF6C00',
-    borderRadius: 100,
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  btnTxt: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#ffffff',
-    textAlign: 'center',
-  },
-  loginText: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#1B4371',
-    textAlign: 'center',
-  },
-});

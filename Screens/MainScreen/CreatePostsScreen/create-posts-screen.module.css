@@ -1,0 +1,45 @@
+.container {
+    flex: 1,
+        paddingHorizontal: 16,
+        paddingTop: 32,
+        borderTopColor: '#e8e8e8',
+        borderTopWidth: 1,
+}
+
+
+
+.postPhoto {
+    justifyContent: 'center',
+        alignItems: 'center',
+        height: 240,
+        backgroundColor: '#f6f6f6',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#e8e8e8',
+}
+
+,
+uselessText: {
+    paddingVertical: 8,
+        fontFamily: 'Roboto-Regular',
+        fontSize: 16,
+        color: '#bdbdbd',
+}
+
+,
+
+form: {
+    height: 300,
+        backgroundColor: 'pink',
+}
+
+,
+
+input: {
+    height: 50,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e8e8e8',
+}
+
+,
+});

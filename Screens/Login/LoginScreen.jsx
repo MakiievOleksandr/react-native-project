@@ -1,27 +1,25 @@
 import { useState } from 'react';
 
+import styles from './login-screen-styles';
+
 import {
-  StyleSheet,
   Text,
   View,
   ImageBackground,
   TextInput,
   TouchableOpacity,
-  Image,
   Platform,
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
 
-import * as Font from 'expo-font';
-
 const initialState = {
   email: '',
   password: '',
 };
 
-const RegistrationScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
 
@@ -31,7 +29,8 @@ const RegistrationScreen = () => {
   };
 
   const handleSubmitForm = () => {
-    console.log(state);
+    navigation.navigate('Posts');
+    // console.log(state);
     setState(initialState);
   };
 
@@ -39,7 +38,7 @@ const RegistrationScreen = () => {
     <TouchableWithoutFeedback onPress={handleHideKeyboard}>
       <View style={styles.container}>
         <ImageBackground
-          source={require('../assets/images/hero-bg.jpg')}
+          source={require('../../assets/images/hero-bg.jpg')}
           style={styles.img}
         >
           <View
@@ -97,7 +96,9 @@ const RegistrationScreen = () => {
                 >
                   <Text style={styles.btnTxt}>Sign in</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Registration')}
+                >
                   <Text style={styles.loginText}>
                     Don't have an account? Registration
                   </Text>
@@ -111,83 +112,4 @@ const RegistrationScreen = () => {
   );
 };
 
-export default RegistrationScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  img: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'flex-end',
-  },
-
-  form: {
-    backgroundColor: '#ffffff',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
-    paddingTop: 32,
-    paddingHorizontal: 16,
-  },
-
-  text: {
-    color: '#212121',
-    fontSize: 30,
-    fontWeight: '500',
-    textAlign: 'center',
-    paddingBottom: 32,
-  },
-
-  input: {
-    borderWidth: 1,
-    borderColor: '#e8e8e8',
-    height: 50,
-    borderRadius: 8,
-    color: '#212121',
-    padding: 16,
-    backgroundColor: '#F6F6F6',
-    fontSize: 16,
-    fontWeight: '400',
-    marginBottom: 16,
-  },
-  inputLastChild: {
-    marginBottom: 0,
-  },
-
-  showBtn: {
-    position: 'absolute',
-    right: 0,
-    top: 10,
-    backgroundColor: 'transparent',
-    minWidth: 80,
-    height: 30,
-    borderRadius: 5,
-    justifyContent: 'center',
-  },
-  showBtnText: {
-    fontSize: 16,
-    fontWeight: '400',
-    textAlign: 'center',
-    color: '#1B4371',
-  },
-  button: {
-    height: 50,
-    backgroundColor: '#FF6C00',
-    borderRadius: 100,
-    justifyContent: 'center',
-    marginBottom: 16,
-  },
-  btnTxt: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#ffffff',
-    textAlign: 'center',
-  },
-  loginText: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: '#1B4371',
-    textAlign: 'center',
-  },
-});
+export default LoginScreen;
